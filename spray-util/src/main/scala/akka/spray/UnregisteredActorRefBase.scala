@@ -18,8 +18,8 @@ package akka.spray
 
 import scala.annotation.tailrec
 import akka.util.Unsafe
-import akka.dispatch._
 import akka.actor._
+import akka.dispatch.sysmsg.{ Terminate, SystemMessage }
 
 abstract class UnregisteredActorRefBase(val provider: ActorRefProvider) extends MinimalActorRef {
   import UnregisteredActorRefBase._

@@ -4,10 +4,14 @@ import com.typesafe.sbt.SbtScalariform
 import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 import sbtassembly.Plugin.AssemblyKeys._
 import sbtassembly.Plugin._
+import scala._
+import scala.Some
 import spray.revolver.RevolverPlugin.Revolver
 import twirl.sbt.TwirlPlugin.Twirl
 import ls.Plugin._
 
+import com.typesafe.sbt.osgi.OsgiKeys
+import com.typesafe.sbt.osgi.SbtOsgi._
 
 object BuildSettings {
   val VERSION = "1.1-M8-SNAPSHOT"
@@ -45,17 +49,7 @@ object BuildSettings {
       // publishing
       crossPaths := false,
       publishMavenStyle := true,
-      publishTo <<= version { version =>
-        Some {
-          "spray nexus" at {
-            // public uri is repo.spray.io, we use an SSH tunnel to the nexus here
-            "http://localhost:42424/content/repositories/" + {
-              if (version.trim.endsWith("SNAPSHOT")) "snapshots/" else
-                if (NightlyBuildSupport.isNightly) "nightlies/" else "releases/"
-            }
-          }
-        }
-      },
+      publishTo := Some(Resolver.file("file",  new File(Path.userHome.absolutePath+"/.m2/repository"))),
 
       // LS
       (LsKeys.tags in LsKeys.lsync) := Seq("http", "server", "client", "async"),
@@ -100,6 +94,8 @@ object BuildSettings {
     test in assembly := {},
     javaOptions in Revolver.reStart ++= Seq("-verbose:gc", "-XX:+PrintCompilation")
   )
+
+  lazy val osgiExampleSettings = sprayModuleSettings ++ osgiSettings ++ Seq(OsgiKeys.bundleActivator := Option("spray.examples.Activator")) ++ Seq(OsgiKeys.exportPackage := Seq("spray.examples"))
 
   import com.github.siasia.WebPlugin._
   lazy val jettyExampleSettings = exampleSettings ++ webSettings // ++ disableJettyLogSettings

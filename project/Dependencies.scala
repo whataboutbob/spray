@@ -13,9 +13,11 @@ object Dependencies {
   def container (deps: ModuleID*): Seq[ModuleID] = deps map (_ % "container")
 
   val scalaReflect  = "org.scala-lang"                          %   "scala-reflect"               % "2.10.1"
-  val akkaActor     = "com.typesafe.akka"                       %%  "akka-actor"                  % "2.1.4"
-  val akkaSlf4j     = "com.typesafe.akka"                       %%  "akka-slf4j"                  % "2.1.4"
-  val akkaTestKit   = "com.typesafe.akka"                       %%  "akka-testkit"                % "2.1.4"
+  val akkaActor     = "com.typesafe.akka"                       %%  "akka-actor"                  % "2.2-SNAPSHOT"
+  val akkaOsgi      = "com.typesafe.akka"                       %%  "akka-osgi"                   % "2.2-SNAPSHOT"
+  val akkaSlf4j     = "com.typesafe.akka"                       %%  "akka-slf4j"                  % "2.2-SNAPSHOT"
+  val akkaTestKit   = "com.typesafe.akka"                       %%  "akka-testkit"                % "2.2-SNAPSHOT"
+  val tsConfig      = "com.typesafe"                            %   "config"                      % "1.0.1"
   val parboiled     = "org.parboiled"                           %%  "parboiled-scala"             % "1.1.5"
   val shapeless     = "com.chuusai"                             %%  "shapeless"                   % "1.2.4"
   val scalatest     = "org.scalatest"                           %%  "scalatest"                   % "1.9.1"
@@ -31,4 +33,5 @@ object Dependencies {
   val liftJson      = "net.liftweb"                             %%  "lift-json"                   % "2.5-RC5"
   val json4sNative  = "org.json4s"                              %%  "json4s-native"               % "3.2.4"
   val json4sJackson = "org.json4s"                              %%  "json4s-jackson"              % "3.2.4"
+  val osgiCore      = "org.osgi"                                %   "org.osgi.core"               % "4.2.0"
 }
